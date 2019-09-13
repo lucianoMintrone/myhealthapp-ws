@@ -1,24 +1,47 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Requirements
 
-Things you may want to cover:
+- _Ruby_ > 2.6.3
+- _MySQL_ > 8.0.15
 
-* Ruby version
+## Set up project
 
-* System dependencies
+```sh
+git clone git@github.com:JuanmaLambre/myhealth-serv.git
+cd myhealth-serv
+bundle install
+```
 
-* Configuration
+### Start Server
 
-* Database creation
+In order to start the server on http://localhost:3000/ you will need to run:
 
-* Database initialization
+```sh
+bundle exec rails s
+```
 
-* How to run the test suite
+### Use Console
 
-* Services (job queues, cache servers, search engines, etc.)
+```sh
+bundle exec rails c
+```
 
-* Deployment instructions
+### Create database
 
-* ...
+```sh
+cp config/database.example.yml config/database.yml
+bundle exec rake db:create db:migrate db:seed
+```
+
+### Drop database
+
+```sh
+bundle exec rake db:drop
+```
+
+### Annotate Models
+
+```sh
+bundle exec annotate --exclude tests,fixtures,factories,serializers
+```
