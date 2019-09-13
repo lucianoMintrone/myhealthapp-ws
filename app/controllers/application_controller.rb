@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 	skip_before_action :verify_authenticity_token
 
 	rescue_from ::ActiveRecord::RecordNotFound, with: :render_record_not_found
+	rescue_from ::MyHealthError, with: :render_my_health_error
 
 	private
 	def render_object(object, options = {})
@@ -18,5 +19,9 @@ class ApplicationController < ActionController::Base
 
 	def render_record_not_found(exception)
 		render_failed_response 'record_not_found', exception.message, 404
+	end
+
+	def render_my_health_error(exception)
+		render_failed_response exception.error, exception.error_message, exception.status_code
 	end
 end

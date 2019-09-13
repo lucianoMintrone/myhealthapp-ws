@@ -1,12 +1,30 @@
 class SignUpUser < BaseInteractor
-	def initialize(email:, medical_plan_number:)
-		@email = email
-		@medical_plan_number = medical_plan_number
+	def initialize(user_params:)
+		@user_params = user_params
 	end
 
 	def execute
-		user = User.find_by! email: @email, medical_plan_number: @medical_plan_number
-		invalid :user, 'El usuario ya se encuentra registrado' if user.encrypted_password.present?
+		validate_user
+		update_user
 		user
+	end
+
+	private
+	def user
+		@user ||= User.find_by! email: @user_params[:email], medical_plan_number: @user_params[:medical_plan_number]
+	end
+
+	def update_user
+		user.update! user_attributes
+	end
+
+	def user_attributes
+		@user_params.slice(:document_number, :first_name, :last_name, :phone_number, :birth_date, 
+			:medical_plan_expiration_date, :password
+		)
+	end
+
+	def validate_user
+		invalid :user, 'El usuario ya se encuentra registrado' if user.encrypted_password.present?
 	end
 end

@@ -1,5 +1,12 @@
 class UsersController < ApplicationController
 	def sign_up
-		render_object SignUpUser.new(email: params[:email], medical_plan_number: params[:medical_plan_number]).execute
+		render_object SignUpUser.new(user_params: user_params).execute
+	end
+
+	private
+	def user_params
+		params.permit(:email, :medical_plan_number, :document_number, :first_name, :last_name, 
+			:phone_number, :birth_date, :medical_plan_expiration_date, :password
+		)
 	end
 end
