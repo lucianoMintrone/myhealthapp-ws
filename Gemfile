@@ -54,6 +54,8 @@ gem "valid_email2"
 
 gem 'rswag'
 
+gem 'geokit-rails' # https://github.com/geokit/geokit-rails
+
 group :development, :test do
 	# Call 'byebug' anywhere in the code to stop execution and get a debugger console
 	gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
