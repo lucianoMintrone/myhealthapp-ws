@@ -14,6 +14,10 @@ class ApplicationController < ActionController::Base
 		render_successful_response ObjectRenderer.new(object, options).render
 	end
 
+	def render_collection(collection, options = {})
+		render_successful_response CollectionRenderer.new(collection, options).render
+	end
+
 	def render_successful_response(hash)
 		render_response hash: hash, status: 200
 	end

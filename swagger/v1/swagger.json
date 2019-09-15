@@ -1,0 +1,124 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "paths": {
+    "/sign_up": {
+      "post": {
+        "summary": "Sign up",
+        "tags": [
+          "Users"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_params",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "document_number": {
+                  "type": "integer"
+                },
+                "medical_plan_number": {
+                  "type": "integer"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "first_name": {
+                  "type": "string"
+                },
+                "last_name": {
+                  "type": "string"
+                },
+                "phone_number": {
+                  "type": "string"
+                },
+                "birth_date": {
+                  "type": "date"
+                },
+                "medical_plan_expiration_date": {
+                  "type": "date"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "document_number",
+                "medical_plan_number"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user signed up"
+          },
+          "422": {
+            "description": "invalid email"
+          },
+          "400": {
+            "description": "user has already signed up"
+          },
+          "404": {
+            "description": "user doesn't exist"
+          }
+        }
+      }
+    },
+    "/oauth/token": {
+      "post": {
+        "summary": "Log in",
+        "tags": [
+          "Users"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "log_in_params",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "document_number": {
+                  "type": "integer"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "grant_type": {
+                  "type": "string",
+                  "description": "password"
+                }
+              },
+              "required": [
+                "document_number",
+                "password",
+                "grant_type"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user logged in"
+          },
+          "400": {
+            "description": "invslid password"
+          },
+          "404": {
+            "description": "user doesn't exist"
+          }
+        }
+      }
+    }
+  }
+}
