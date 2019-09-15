@@ -17,10 +17,6 @@ class ApplicationController < ActionController::Base
 		render_response hash: hash, status: 200
 	end
 
-	def render_record_not_found(exception)
-		render_failed_response 'record_not_found', exception.message, 404
-	end
-
 	def render_my_health_error(exception)
 		render_failed_response exception.error, exception.error_message, exception.status_code
 	end

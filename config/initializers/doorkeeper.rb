@@ -4,7 +4,13 @@ Doorkeeper.configure do
 	orm :active_record
 
 	resource_owner_from_credentials do |routes|
-		LogInUser.new(email: params[:email], password: params[:password]).execute
+		begin
+			LogInUser.new(email: params[:email], password: params[:password]).execute
+		rescue MyHealthError => e
+			render_failed_response e.error, e.error_message, e.status_code
+		rescue ActiveRecord::RecordNotFound => e
+			render_record_not_found e
+		end
 	end
 
 	grant_flows %w(password)
@@ -17,3 +23,5 @@ Doorkeeper.configure do
 	#
 	api_only
 end
+
+require_relative "#{Rails.root}/lib/doorkeeper_create_token"
