@@ -19,4 +19,6 @@
 
 class User < ApplicationRecord
 	devise :database_authenticatable, :registerable
+
+	validates :email, 'valid_email_2/email': true
 end
