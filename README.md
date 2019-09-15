@@ -1,5 +1,9 @@
 # README
 
+## Server IP
+
+3.82.194.73
+
 ## Requirements
 
 - _Ruby_ > 2.6.3
