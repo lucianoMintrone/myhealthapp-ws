@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 	skip_before_action :verify_authenticity_token
 
 	rescue_from ::ActiveRecord::RecordNotFound, with: :render_record_not_found
+	rescue_from ::ActiveRecord::RecordInvalid, with: :render_invalid_record
 	rescue_from ::MyHealthError, with: :render_my_health_error
 
 	private
@@ -19,5 +20,9 @@ class ApplicationController < ActionController::Base
 
 	def render_my_health_error(exception)
 		render_failed_response exception.error, exception.error_message, exception.status_code
+	end
+
+	def render_invalid_record(exception)
+		render_failed_response 'invalid_record', exception.record.errors.messages, 422
 	end
 end
