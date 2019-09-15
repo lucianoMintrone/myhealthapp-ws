@@ -11,7 +11,9 @@ class SignUpUser < BaseInteractor
 
 	private
 	def user
-		@user ||= User.find_by! email: @user_params[:email], medical_plan_number: @user_params[:medical_plan_number]
+		@user ||= User.find_by!(document_number: @user_params[:document_number], 
+			medical_plan_number: @user_params[:medical_plan_number]
+		)
 	end
 
 	def update_user
@@ -19,7 +21,7 @@ class SignUpUser < BaseInteractor
 	end
 
 	def user_attributes
-		@user_params.slice(:document_number, :first_name, :last_name, :phone_number, :birth_date, 
+		@user_params.slice(:email, :first_name, :last_name, :phone_number, :birth_date, 
 			:medical_plan_expiration_date, :password
 		)
 	end

@@ -5,7 +5,7 @@ Doorkeeper.configure do
 
 	resource_owner_from_credentials do |routes|
 		begin
-			LogInUser.new(email: params[:email], password: params[:password]).execute
+			LogInUser.new(document_number: params[:document_number], password: params[:password]).execute
 		rescue MyHealthError => e
 			render_failed_response e.error, e.error_message, e.status_code
 		rescue ActiveRecord::RecordNotFound => e

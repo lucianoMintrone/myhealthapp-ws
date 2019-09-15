@@ -1,6 +1,6 @@
 class LogInUser < BaseInteractor
-	def initialize(email:, password:)
-		@email = email
+	def initialize(document_number:, password:)
+		@document_number = document_number
 		@password = password
 	end
 
@@ -12,7 +12,7 @@ class LogInUser < BaseInteractor
 
 	private
 	def user
-		@user ||= User.find_by! email: @email
+		@user ||= User.find_by! document_number: @document_number
 	end
 
 	def validate_password
